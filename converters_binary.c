@@ -1,7 +1,8 @@
 #include "main.h"
 
 /**
- * print_hex - prints a number in hexadecimal base(lower case)
+ * print_hex - prints a number in hexadecimal base
+ * (lower case)
  * @l: va_list arguments from _printf
  * @f: pointer to the struct flags that determines
  * if a flag is passed to _printf
@@ -22,7 +23,8 @@ int print_hex(va_list l, flags_t *f)
 }
 
 /**
- * print_hex_big - prints a number in hexadecimal base(uppercase)
+ * print_hex_big - prints a number in hexadecimal base
+ * (uppercase)
  * @l: va_list arguments from _printf
  * @f: pointer to the struct that determines
  * if a flag is passed to _printf
