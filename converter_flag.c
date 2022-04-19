@@ -69,7 +69,7 @@ int print_binary(va_list l, flags_t *f)
  * if a flag is passed to _printf
  * Description: the function calls convert() which in turns converts the input
  * number into the correct base and returns it as a string
- * Return:
+ * Return: the number of char printed
  */
 int print_octal(va_list l, flags_t *f)
 {
