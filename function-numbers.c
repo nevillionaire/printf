@@ -1,84 +1,73 @@
 #include "main.h"
 
-/**
- * print_int - prints an integer
- * @l: va_list of arguments from _printf
- * @f: pointer to the struct flags determining
- * if a flag is passed to _printf
- * Return: number of char printed
- */
-int print_int(va_list l, flags_t *f)
-{
-	int n = va_arg(l, int);
-	int res = count_digit(n);
-
-	if (f->space == 1 && f->plus == 0 && n >= 0)
-		res += _putchar(' ');
-	if (f->plus == 1 && n >= 0)
-		res += _putchar('+');
-	if (n <= 0)
-		res++;
-	print_number(n);
-	return (res);
-}
+unsigned int _memcpy(buffer_t *output, const char *src, unsigned int n);
+void free_buffer(buffer_t *output);
+buffer_t *init_buffer(void);
 
 /**
- * print_unsigned - prints an unsigned integer
- * @l: va_list of arguments from _printf
- * @f: pointer to the struct flags determining
- * if a flag is passed to _printf
- * Return: the number of char characters is printed
+ * _memcpy - Copies n bytes from memory area src to
+ *           the buffer contained in a buffer_t struct.
+ * @output: A buffer_t struct.
+ * @src: A pointer to the memory area to copy.
+ * @n: The number of bytes to be copied.
+ *
+ * Return: The number of bytes copied.
  */
-int print_unsigned(va_list l, flags_t *f)
+unsigned int _memcpy(buffer_t *output, const char *src, unsigned int n)
 {
-	unsigned int u = va_arg(l, unsigned int);
-	char *str = convert(u, 10, 0);
+	unsigned int index;
 
-	(void)f;
-	return (_puts(str));
-}
-
-/**
- * print_number - helper function that loops through
- * an integer and prints all its digits
- * @n: integer to be printed
- */
-void print_number(int n)
-{
-	unsigned int n1;
-
-	if (n < 0)
+	for (index = 0; index < n; index++)
 	{
-		_putchar('-');
-		n1 = -n;
-	}
-	else
-		n1 = n;
+		*(output->buffer) = *(src + index);
+		(output->len)++;
 
-	if (n1 / 10)
-		print_number(n1 / 10);
-	_putchar((n1 % 10) + '0');
+		if (output->len == 1024)
+		{
+			write(1, output->start, output->len);
+			output->buffer = output->start;
+			output->len = 0;
+		}
+
+		else
+			(output->buffer)++;
+	}
+
+	return (n);
 }
 
 /**
- * count_digit - returns the number of digits in an integer
- * for _printf
- * @i: integer to evaluate
- * Return: the number of digits
+ * free_buffer - Frees a buffer_t struct.
+ * @output: The buffer_t struct to be freed.
  */
-int count_digit(int i)
+void free_buffer(buffer_t *output)
 {
-	unsigned int d = 0;
-	unsigned int u;
+	free(output->start);
+	free(output);
+}
 
-	if (i < 0)
-		u = i * -1;
-	else
-		u = i;
-	while (u != 0)
+/**
+ * init_buffer - Initializes a variable of struct type buffer_t.
+ *
+ * Return: A pointer to the initialized buffer_t.
+ */
+buffer_t *init_buffer(void)
+{
+	buffer_t *output;
+
+	output = malloc(sizeof(buffer_t));
+	if (output == NULL)
+		return (NULL);
+
+	output->buffer = malloc(sizeof(char) * 1024);
+	if (output->buffer == NULL)
 	{
-		u /= 10;
-		d++;
+		free(output);
+		return (NULL);
 	}
-	return (d);
+
+	output->start = output->buffer;
+	output->len = 0;
+
+	return (output);
 }
