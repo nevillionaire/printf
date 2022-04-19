@@ -42,7 +42,7 @@ int print_bigS(va_list l, flags_t *f)
  * @l: argument from _printf
  * @f: pointer to the struct flags that determines
  * if a flag is passed to _printf
- * Return: length of printed string
+ * Return: length of the printed string
  */
 int print_rev(va_list l, flags_t *f)
 {
@@ -67,7 +67,7 @@ int print_rev(va_list l, flags_t *f)
  * @l: list of arguments from _printf
  * @f: pointer to the struct flags that determines
  * if a flag is passed to _printf
- * Return: length of printed string
+ * Return: length of the printed string
  */
 int print_rot13(va_list l, flags_t *f)
 {
@@ -98,7 +98,7 @@ int print_rot13(va_list l, flags_t *f)
  * print_percent - prints a percent
  * @l: va_list arguments from _printf
  * @f: pointer to the struct flags in which we turn the flags on
- * Return: 
+ * Return: number of char printed
  */
 int print_percent(va_list l, flags_t *f)
 {
