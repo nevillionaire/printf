@@ -1,3 +1,4 @@
+<img src="https://badges.pufler.dev/visits/nevillionaire/printf?style=flat-square&color=red&logo=github&a=0">
 C- Printf task
 
 Description
